@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>МОМЕНТ — займы онлайн: 24 МФО в одном списке</title>
+<meta name="description" content="МОМЕНТ — витрина микрозаймов: 24 микрофинансовые организации, суммы до 100 000 ₽, первый займ под 0%. Сравните условия и отправьте заявку на сайте компании.">
+<meta name="theme-color" content="#F2F0EA">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/fonts.css?v=20260913174944">
+<link rel="stylesheet" href="css/style.css?v=20260913174944">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Перейти к содержимому</a>
+
+<header class="head">
+  <div class="wrap head__in">
+    <a class="brand" href="index.html" aria-label="МОМЕНТ — на главную">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 32 32" width="30" height="30" focusable="false" aria-hidden="true">
+          <rect width="32" height="32" rx="8" fill="#111112"></rect>
+          <path d="M8 23V9h3.6l4.4 8 4.4-8H24v14h-3.3v-8.2L16.7 21h-1.4l-4-6.2V23z" fill="#fff"></path>
+        </svg>
+      </span>
+      <span class="brand__text">
+        <span class="brand__word" data-brand>МОМЕНТ</span>
+        <span class="brand__sub">витрина займов</span>
+      </span>
+    </a>
+
+    <nav class="head__nav" aria-label="Основное меню">
+      <ul role="list">
+        <li><a href="#catalog">Каталог</a></li>
+        <li><a href="#how">Как это работает</a></li>
+        <li><a href="#faq">Вопросы</a></li>
+      </ul>
+    </nav>
+
+    <a class="btn btn--dark head__cta" href="#picker">Подобрать займ</a>
+  </div>
+</header>
+
+<main id="main" tabindex="-1">
+
+  <!-- ═══ первый экран: слева подбор, справа живой топ каталога ═══ -->
+  <section class="hero">
+    <div class="wrap hero__in">
+
+      <div class="hero__left">
+        <p class="eyebrow"><span class="dot" aria-hidden="true"></span><span data-tagline>24 микрофинансовые организации в одном списке</span></p>
+        <h1>Деньги на карту<br>за 5 минут</h1>
+        <p class="lead" data-lead>Сравните условия займов и отправьте заявку на сайте компании. Деньги приходят на карту, счёт или наличными — обычно в тот же день.</p>
+
+        <form class="picker" id="picker" novalidate>
+          <h2 class="picker__title">Подбор за два движения</h2>
+
+          <div class="picker__row">
+            <div class="range" role="group" aria-labelledby="sum-label">
+              <span class="range__label" id="sum-label">Нужная сумма</span>
+              <span class="range__box">
+                <label class="vh" for="f-sum-num">Сумма в рублях</label>
+                <input class="range__num" type="text" id="f-sum-num" inputmode="numeric"
+                       autocomplete="off" value="15 000" aria-describedby="sum-hint">
+                <span class="range__cur" aria-hidden="true">₽</span>
+              </span>
+              <input class="range__input" type="range" id="f-sum" name="sum"
+                     min="1000" max="100000" step="1000" value="15000"
+                     aria-label="Сумма — ползунок" aria-describedby="sum-hint">
+              <p class="range__ends" id="sum-hint">От 1 000 ₽ до 100 000 ₽, шаг 1 000 ₽</p>
+            </div>
+
+            <div class="range" role="group" aria-labelledby="term-label">
+              <span class="range__label" id="term-label">Срок</span>
+              <span class="range__box">
+                <label class="vh" for="f-term-num">Срок в днях</label>
+                <input class="range__num" type="text" id="f-term-num" inputmode="numeric"
+                       autocomplete="off" value="14" aria-describedby="term-hint">
+                <span class="range__cur" aria-hidden="true">дн.</span>
+              </span>
+              <input class="range__input" type="range" id="f-term" name="term"
+                     min="7" max="365" step="7" value="14"
+                     aria-label="Срок — ползунок" aria-describedby="term-hint">
+              <p class="range__ends" id="term-hint">От 7 до 365 дней, шаг неделя</p>
+            </div>
+          </div>
+
+          <p class="picker__result">
+            Подходит <b id="pick-count">24</b> из <b data-total>24</b> —
+            компании, которые дают такую сумму на такой срок.
+          </p>
+
+          <button class="btn btn--accent picker__go" type="button" id="pick-go">
+            Смотреть <span data-pick-n>24 предложения</span>
+          </button>
+          <p class="picker__note">Заявка бесплатная, ответ обычно за 1–5 минут.</p>
+        </form>
+      </div>
+
+      <aside class="spot">
+        <div class="spot__head">
+          <h2 class="spot__title">Самые крупные суммы</h2>
+          <span class="spot__stamp" aria-hidden="true">до 100 000 ₽</span>
+        </div>
+        <ol class="spot__list" id="spot-list">
+          <li class="spot__skeleton">Загружаем каталог…</li>
+        </ol>
+        <p class="spot__more"><a href="#catalog">Весь каталог — <span data-total>24</span> компании</a></p>
+      </aside>
+
+    </div>
+  </section>
+
+  <!-- ═══ полоса цифр ═══ -->
+  <section class="stats">
+    <ul class="wrap stats__in" role="list">
+      <li><b data-total>24</b><span>компании в каталоге</span></li>
+      <li><b><span data-count="100000">100 000</span> ₽</b><span>максимальная сумма</span></li>
+      <li><b>0%</b><span>первый займ у 8 компаний</span></li>
+      <li><b>24/7</b><span>заявки круглосуточно</span></li>
+    </ul>
+  </section>
+
+  <!-- ═══ лента логотипов ═══
+       Внутри ленты нет ни ссылок, ни фокусируемых элементов: она скрыта от
+       скринридера целиком, все те же компании есть в каталоге ниже. -->
+  <section class="ribbon" id="ribbon">
+    <div class="wrap ribbon__bar">
+      <button class="ribbon__pause" type="button" id="ribbon-pause">Остановить движение ленты</button>
+    </div>
+    <div class="ribbon__viewport" aria-hidden="true">
+      <ul class="ribbon__list" id="ribbon-track"></ul>
+    </div>
+  </section>
+
+  <!-- ═══ каталог ═══ -->
+  <section class="catalog" id="catalog" tabindex="-1" aria-labelledby="catalog-title">
+    <div class="wrap">
+      <div class="catalog__head">
+        <h2 id="catalog-title">Каталог займов</h2>
+        <p class="catalog__sub">Условия проверены <span data-updated>14.09.2026</span>. Точные суммы и ставки компания показывает в анкете.</p>
+        <p class="catalog__ad">Кнопки в карточках ведут на сайты микрофинансовых организаций по партнёрским ссылкам.</p>
+      </div>
+
+      <div class="filters">
+        <fieldset class="filters__chips" id="f-chips">
+          <legend>Условия</legend>
+        </fieldset>
+        <div class="filters__tools">
+          <span class="filters__sort">
+            <label for="f-sort">Сортировка</label>
+            <select id="f-sort" name="sort">
+              <option value="sum">по сумме</option>
+              <option value="term">по сроку</option>
+              <option value="zero">сначала 0%</option>
+              <option value="name">по названию</option>
+            </select>
+          </span>
+          <button class="btn btn--ghost" type="button" id="f-reset">Сбросить фильтры</button>
+        </div>
+      </div>
+
+      <p class="catalog__count" id="catalog-count" role="status" aria-atomic="true">24 предложения</p>
+
+      <ul class="cards" id="cards" role="list"></ul>
+
+      <div class="empty" id="catalog-empty" hidden>
+        <p>Под такие условия ничего не нашлось. Уменьшите сумму или срок — либо сбросьте фильтры.</p>
+        <button class="btn btn--ghost" type="button" data-reset>Сбросить фильтры</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ как это работает ═══ -->
+  <section class="how" id="how" tabindex="-1">
+    <div class="wrap">
+      <h2>Как получить деньги</h2>
+      <ol class="how__steps">
+        <li>
+          <span class="how__n" aria-hidden="true">01</span>
+          <b class="how__h">Выберите компанию</b>
+          <span>Поставьте сумму и срок — в каталоге останутся те, кто выдаёт такой займ.</span>
+        </li>
+        <li>
+          <span class="how__n" aria-hidden="true">02</span>
+          <b class="how__h">Заполните анкету</b>
+          <span>Кнопка ведёт на сайт компании. Нужен паспорт, телефон и карта или счёт.</span>
+        </li>
+        <li>
+          <span class="how__n" aria-hidden="true">03</span>
+          <b class="how__h">Получите перевод</b>
+          <span>Решение обычно за 1–5 минут, деньги приходят на карту, счёт или наличными.</span>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <!-- ═══ вопросы ═══ -->
+  <section class="faq" id="faq" tabindex="-1">
+    <div class="wrap faq__in">
+      <div class="faq__aside">
+        <h2>Частые вопросы</h2>
+        <p>Коротко о том, что спрашивают чаще всего перед первой заявкой.</p>
+      </div>
+
+      <ul class="faq__list" role="list">
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q1" aria-expanded="false" aria-controls="a1">Что нужно, чтобы взять займ</button></h3>
+          <div class="faq__a" id="a1" role="region" aria-labelledby="q1" hidden>
+            <p>Паспорт гражданина РФ, возраст от 18 лет, номер телефона и карта или счёт
+               для перевода. Справка о доходах в большинстве компаний не нужна.</p>
+          </div>
+        </li>
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q2" aria-expanded="false" aria-controls="a2">Дадут ли с плохой кредитной историей</button></h3>
+          <div class="faq__a" id="a2" role="region" aria-labelledby="q2" hidden>
+            <p>Часть компаний смотрит на историю мягче банков и оценивает заявку автоматически.
+               Гарантий не даёт никто: решение принимает сама микрофинансовая организация.</p>
+          </div>
+        </li>
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q3" aria-expanded="false" aria-controls="a3">Сколько стоит займ</button></h3>
+          <div class="faq__a" id="a3" role="region" aria-labelledby="q3" hidden>
+            <p>По закону ставка не может превышать 0,8% в день, а переплата ограничена.
+               Точную сумму возврата компания показывает в договоре до подписания —
+               прочитайте её перед тем, как соглашаться.</p>
+          </div>
+        </li>
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q4" aria-expanded="false" aria-controls="a4">Как быстро приходят деньги</button></h3>
+          <div class="faq__a" id="a4" role="region" aria-labelledby="q4" hidden>
+            <p>Решение по анкете обычно занимает 1–5 минут. Перевод на карту приходит
+               в течение нескольких минут, на счёт или кошелёк — чуть дольше.</p>
+          </div>
+        </li>
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q5" aria-expanded="false" aria-controls="a5">Можно ли вернуть раньше срока</button></h3>
+          <div class="faq__a" id="a5" role="region" aria-labelledby="q5" hidden>
+            <p>Да. Досрочное погашение разрешено законом, штрафа за него нет:
+               проценты начисляются только за те дни, что вы пользовались деньгами.</p>
+          </div>
+        </li>
+        <li class="faq__item">
+          <h3><button class="faq__q" type="button" id="q6" aria-expanded="false" aria-controls="a6">Вы сами выдаёте займы</button></h3>
+          <div class="faq__a" id="a6" role="region" aria-labelledby="q6" hidden>
+            <p>Нет. <span data-brand>МОМЕНТ</span> — информационный сервис: мы собираем условия в одном месте,
+               а договор вы заключаете напрямую с выбранной компанией на её сайте.</p>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap foot__in">
+    <div class="foot__brand">
+      <span class="foot__word" data-brand>МОМЕНТ</span>
+      <p>Витрина займов: <span data-total>24</span> микрофинансовые организации в одном списке.
+         Условия проверены <span data-updated>14.09.2026</span>.</p>
+    </div>
+
+    <nav class="foot__nav" aria-label="Ссылки в подвале">
+      <ul role="list">
+        <li><a href="#catalog">Каталог займов</a></li>
+        <li><a href="#how">Как это работает</a></li>
+        <li><a href="#faq">Частые вопросы</a></li>
+      </ul>
+    </nav>
+
+    <div class="foot__legal">
+      <h2 class="vh">Правовая информация</h2>
+      <p class="foot__age"><span class="foot__age-mark">18+</span> Займы выдают только совершеннолетним гражданам России.</p>
+      <p><span data-brand>МОМЕНТ</span> не выдаёт займы и не является кредитором, микрофинансовой
+         организацией или банком. Сайт носит информационный характер и не является
+         публичной офертой. Решение по заявке принимает выбранная компания, договор
+         вы заключаете с ней напрямую. Переходя по кнопке, вы попадаете на сайт этой
+         компании — там указаны действующие ставки, сроки и полная стоимость займа.</p>
+      <p>Займы предоставляются микрофинансовыми организациями, включёнными в
+         государственный реестр Банка России.</p>
+    </div>
+  </div>
+</footer>
+
+<script src="data.php"></script>
+<script>if(typeof OFFERS==="undefined"){document.write('<script src="data.js?v=20260913174944"><\/script>');}</script>
+<script src="js/app.js?v=20260913174944"></script>
+</body>
+</html>
