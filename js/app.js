@@ -66,7 +66,16 @@
 
   /* ── разбор каталога ──────────────────────────────────────────────── */
 
-  var items = live.map(function (o, i) {
+  /* Первый раздел — займы: на них работают подбор, фильтры, счётчики и
+     первый экран. Остальные разделы (карты) идут отдельными блоками ниже.
+     Номер i сквозной по всему каталогу — из него собираются id заголовков
+     карточек, и повториться между разделами он не может. */
+  var mainCat = cats.length ? cats[0].id : 'mfo';
+  var catById = {};
+  cats.forEach(function (c) { catById[c.id] = c; });
+  function isLoan(cat) { return cat === mainCat || !catById[cat]; }
+
+  var all = live.map(function (o, i) {
     return {
       i: i,
       cat: o.cat,
@@ -87,6 +96,17 @@
             (o.badges || []).some(function (b) { return /0\s*%/.test(b); })
     };
   });
+
+  var items = all.filter(function (o) { return isLoan(o.cat); });
+
+  var SPEC_LOAN = ['Сумма', 'Ставка', 'Срок', 'Возраст'];
+  var SPEC_CARD = ['Выгода', 'Оформление', 'Получение', 'Возраст'];
+  function specLabels(cat) {
+    var own = (catById[cat] && catById[cat].specs) || [];
+    return (isLoan(cat) ? SPEC_LOAN : SPEC_CARD).map(function (d, n) {
+      return String(own[n] || '').trim() || d;
+    });
+  }
 
   var ctaByCat = {};
   cats.forEach(function (c) { ctaByCat[c.id] = c.cta || 'Получить деньги'; });
@@ -194,11 +214,15 @@
   /* ── карточка ─────────────────────────────────────────────────────── */
 
   function cardHTML(o) {
-    var cta = ctaByCat[o.cat] || 'Получить деньги';
+    var loan = isLoan(o.cat);
+    var cta = ctaByCat[o.cat] || (loan ? 'Получить деньги' : 'Оформить');
+    var lab = specLabels(o.cat);
 
+    /* Логотип — украшение: имя компании и так стоит заголовком рядом, а
+       инициалы на плашке скринридер прочёл бы лишним словом перед ним. */
     var logo = o.logo
-      ? '<span class="card__logo"><img src="' + esc(o.logo) + '" alt="" width="44" height="32" loading="lazy" decoding="async"></span>'
-      : '<span class="card__logo card__logo--text" style="background:' + esc(o.tone.bg || '#1F3FD8') +
+      ? '<span class="card__logo" aria-hidden="true"><img src="' + esc(o.logo) + '" alt="" width="44" height="32" loading="lazy" decoding="async"></span>'
+      : '<span class="card__logo card__logo--text" aria-hidden="true" style="background:' + esc(o.tone.bg || '#1F3FD8') +
         ';color:' + esc(o.tone.ink || '#FFFFFF') + '">' + esc(initials(o.partner)) + '</span>';
 
     var badges = o.badges.map(function (b) {
@@ -212,15 +236,18 @@
     var go = o.url
       ? '<p class="card__go"><a class="btn btn--go" href="' + esc(o.url) + '" target="_blank" ' +
         'rel="noopener noreferrer sponsored nofollow">' + esc(cta) +
-        '<span class="vh"> в МФО «' + esc(o.partner) + '», откроется в новой вкладке</span>' +
+        '<span class="vh">' + (loan ? ' в МФО «' + esc(o.partner) + '»'
+          : ' «' + esc(o.partner + (o.tag ? ' ' + o.tag : '')) + '»') +
+        ', откроется в новой вкладке</span>' +
         '<span class="btn__ext" aria-hidden="true">↗</span></a></p>'
       /* Без ссылки кнопки нет вовсе: нажимать нечего, значит и фокусировать
          нечего. Недоступность передана словом, а не серым цветом. */
-      : '<p class="card__soon"><span class="card__badge">Скоро</span>' +
-        'Партнёрская ссылка ещё не подключена — оформить займ здесь пока нельзя.</p>';
+      : '<p class="card__soon"><span class="card__badge">Скоро</span> ' +
+        (loan ? 'Партнёрская ссылка ещё не подключена — оформить займ здесь пока нельзя.'
+              : 'Ссылка на оформление ещё не подключена — оформить здесь пока нельзя.') + '</p>';
 
     return '' +
-      '<li><article class="card" aria-labelledby="o' + o.i + '-name">' +
+      '<li><article class="card' + (loan ? '' : ' card--plain') + '" aria-labelledby="o' + o.i + '-name">' +
         '<div class="card__head">' + logo +
           '<span class="card__name">' +
             '<h3 class="card__partner" id="o' + o.i + '-name">' + esc(o.partner) + '</h3>' +
@@ -228,15 +255,70 @@
           '</span>' +
         '</div>' +
         '<dl class="card__specs">' +
-          '<div class="spec spec--lead"><dt>Сумма</dt><dd>' + esc(o.sum) + '</dd></div>' +
-          '<div class="spec"><dt>Ставка</dt><dd>' + esc(o.rate) + '</dd></div>' +
-          '<div class="spec"><dt>Срок</dt><dd>' + esc(o.term) + '</dd></div>' +
-          (o.age ? '<div class="spec"><dt>Возраст</dt><dd>' + esc(o.age) + '</dd></div>' : '') +
+          '<div class="spec spec--lead"><dt>' + esc(lab[0]) + '</dt><dd>' + esc(o.sum) + '</dd></div>' +
+          (o.rate ? '<div class="spec"><dt>' + esc(lab[1]) + '</dt><dd>' + esc(o.rate) + '</dd></div>' : '') +
+          (o.term ? '<div class="spec"><dt>' + esc(lab[2]) + '</dt><dd>' + esc(o.term) + '</dd></div>' : '') +
+          (o.age ? '<div class="spec"><dt>' + esc(lab[3]) + '</dt><dd>' + esc(o.age) + '</dd></div>' : '') +
         '</dl>' +
         (badges ? '<ul class="card__chips" role="list">' + badges + '</ul>' : '') +
         (o.note ? '<p class="card__note">' + esc(o.note) + '</p>' : '') +
         go +
       '</article></li>';
+  }
+
+  /* ── остальные разделы: отдельные блоки после каталога займов ─────── */
+
+  var extraBox = document.getElementById('extra-sections');
+  if (extraBox) {
+    var navHead = document.querySelector('.head__nav ul');
+    var navFoot = document.querySelector('.foot__nav ul');
+    var headAfter = navHead && navHead.querySelector('a[href="#catalog"]');
+    var footAfter = navFoot && navFoot.querySelector('a[href="#catalog"]');
+
+    cats.slice(1).forEach(function (c) {
+      var list = all.filter(function (o) { return o.cat === c.id; });
+      /* Пустой раздел не показываем вовсе — и ссылки в меню на него нет. */
+      if (!list.length) return;
+      var sid = 'cat-' + (String(c.id).replace(/[^a-z0-9_-]/gi, '') || 'x');
+      if (document.getElementById(sid)) return;
+      var title = String(c.label || '').trim() || 'Раздел';
+
+      extraBox.insertAdjacentHTML('beforeend',
+        '<section class="catalog catalog--extra" id="' + sid + '" tabindex="-1" aria-labelledby="' + sid + '-title">' +
+          '<div class="wrap">' +
+            '<div class="catalog__head">' +
+              '<h2 id="' + sid + '-title">' + esc(title) + '</h2>' +
+              (c.sub ? '<p class="catalog__sub">' + esc(c.sub) + '</p>' : '') +
+              '<p class="catalog__ad">Кнопки в карточках ведут на сайты банков по партнёрским ссылкам.</p>' +
+            '</div>' +
+            '<p class="catalog__count">' + list.length + ' ' + offersWord(list.length) + '</p>' +
+            '<ul class="cards" role="list">' + list.map(cardHTML).join('') + '</ul>' +
+          '</div>' +
+        '</section>');
+
+      /* Ссылка в меню рождается вместе с разделом: источник один, мёртвых
+         пунктов нет. В шапке коротко («Карты»), в подвале — полностью. */
+      function addLink(ul, after, text) {
+        if (!ul) return null;
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = '#' + sid;
+        a.textContent = text;
+        li.appendChild(a);
+        var ref = after ? after.parentNode.nextSibling : null;
+        ul.insertBefore(li, ref);
+        return a;
+      }
+      headAfter = addLink(navHead, headAfter, /карт/i.test(title) && cats.length === 2 ? 'Карты' : title) || headAfter;
+      footAfter = addLink(navFoot, footAfter, title) || footAfter;
+    });
+
+    /* Когда рядом есть карты, пункт «Каталог» в шапке переименовываем в
+       «Займы» — два пункта меню должны различаться по смыслу. */
+    if (extraBox.children.length) {
+      var catLink = navHead && navHead.querySelector('a[href="#catalog"]');
+      if (catLink) catLink.textContent = 'Займы';
+    }
   }
 
   /* ── состояние фильтров ───────────────────────────────────────────── */

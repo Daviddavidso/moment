@@ -365,7 +365,7 @@ h1 {
 
 /* ─────────────────────────────── каталог ───────────────────────────── */
 
-.catalog { padding: 56px 0 10px; scroll-margin-top: 90px; }
+.catalog { padding: 56px 0 10px; }
 .catalog__head { display: grid; gap: 8px; margin-bottom: 22px; }
 .catalog h2 { font-size: clamp(28px, 4vw, 44px); }
 .catalog h2:focus-visible { outline: 3px solid var(--ink); outline-offset: 6px; }
@@ -511,6 +511,17 @@ h1 {
   font: 500 11px/1.5 var(--mono); text-transform: uppercase; letter-spacing: .08em;
 }
 
+/* ── разделы карт ─────────────────────────────────────────────────────
+   Главная строка у карты — слова («Кешбэк в выбранных категориях»), а не
+   число: ставим её под подписью и разрешаем перенос, иначе на 320px она
+   вылезла бы за карточку. */
+.catalog--extra { padding-top: 66px; }
+.card--plain .spec--lead { display: grid; gap: 4px; align-items: start; }
+.card--plain .spec--lead dd {
+  text-align: left; white-space: normal; overflow-wrap: anywhere;
+  font-size: clamp(20px, 2.2vw, 23px); line-height: 1.15;
+}
+
 .empty {
   margin-top: 22px; padding: 22px;
   border: 1.5px dashed var(--ui-border); border-radius: var(--radius);
@@ -520,7 +531,7 @@ h1 {
 
 /* ────────────────────────────── как это работает ────────────────────── */
 
-.how { padding: 66px 0 10px; scroll-margin-top: 90px; }
+.how { padding: 66px 0 10px; }
 .how h2 { font-size: clamp(26px, 3.4vw, 38px); margin-bottom: 26px; }
 .how__steps {
   list-style: none; margin: 0; padding: 0;
@@ -542,7 +553,7 @@ h1 {
 
 /* ─────────────────────────────── вопросы ───────────────────────────── */
 
-.faq { padding: 66px 0 70px; scroll-margin-top: 90px; }
+.faq { padding: 66px 0 70px; }
 .faq__in { display: grid; grid-template-columns: minmax(0, .8fr) minmax(0, 1.2fr); gap: 44px; align-items: start; }
 .faq h2 { font-size: clamp(26px, 3.4vw, 38px); margin-bottom: 12px; }
 .faq__aside p { color: var(--ink-2); font-size: 15.5px; max-width: 34ch; }

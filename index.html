@@ -7,8 +7,8 @@
 <meta name="description" content="МОМЕНТ — витрина микрозаймов: 24 микрофинансовые организации, суммы до 100 000 ₽, первый займ под 0%. Сравните условия и отправьте заявку на сайте компании.">
 <meta name="theme-color" content="#F2F0EA">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="fonts/fonts.css?v=20260913174944">
-<link rel="stylesheet" href="css/style.css?v=20260913174944">
+<link rel="stylesheet" href="fonts/fonts.css?v=20261124120000">
+<link rel="stylesheet" href="css/style.css?v=20261124120000">
 </head>
 <body>
 
@@ -52,7 +52,7 @@
         <h1>Деньги на карту<br>за 5 минут</h1>
         <p class="lead" data-lead>Сравните условия займов и отправьте заявку на сайте компании. Деньги приходят на карту, счёт или наличными — обычно в тот же день.</p>
 
-        <form class="picker" id="picker" novalidate>
+        <form class="picker" id="picker" tabindex="-1" novalidate>
           <h2 class="picker__title">Подбор за два движения</h2>
 
           <div class="picker__row">
@@ -171,6 +171,12 @@
     </div>
   </section>
 
+  <!-- ═══ остальные разделы каталога (дебетовые карты и т.п.) ═══
+       Секции и пункты меню к ним собирает js/app.js из data.js: пустой
+       раздел не появляется вовсе. Без скрипта здесь ничего нет — займы
+       при этом работают как раньше. -->
+  <div id="extra-sections"></div>
+
   <!-- ═══ как это работает ═══ -->
   <section class="how" id="how" tabindex="-1">
     <div class="wrap">
@@ -284,7 +290,7 @@
 </footer>
 
 <script src="data.php"></script>
-<script>if(typeof OFFERS==="undefined"){document.write('<script src="data.js?v=20260913174944"><\/script>');}</script>
-<script src="js/app.js?v=20260913174944"></script>
+<script>if(typeof OFFERS==="undefined"){document.write('<script src="data.js?v=20261124120000"><\/script>');}</script>
+<script src="js/app.js?v=20261124120000"></script>
 </body>
 </html>

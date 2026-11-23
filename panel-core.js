@@ -498,7 +498,7 @@
     }).join('') +
     '<div class="add-group">' +
       '<button class="abtn" type="button" id="add-group-btn" data-gact="new" aria-describedby="add-group-hint">Добавить раздел</button>' +
-      '<p class="hint" id="add-group-hint">Раздел — это кнопка-фильтр наверху сайта и полоса карточек под ней. ' +
+      '<p class="hint" id="add-group-hint">Первый раздел — займы с подбором, каждый следующий — отдельный блок карточек под ними со своим пунктом в меню. ' +
         'Новый раздел появится на сайте, когда в нём будет хотя бы одна карточка.</p>' +
     '</div>';
 
